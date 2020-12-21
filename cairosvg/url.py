@@ -81,6 +81,9 @@ def fetch(url, resource_type):
     image/*, image/svg+xml, text/css).
 
     """
+    blacklist = ['localhost', '127.0.0.1', '[::]', '0000::1', '[0:0:0:0:0:ffff:127.0.0.1]']
+    if(any(link in url for link in blacklist)):
+        return None
     return urlopen(Request(url, headers=HTTP_HEADERS)).read()
 
 
